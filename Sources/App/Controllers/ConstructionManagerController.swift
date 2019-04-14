@@ -13,14 +13,14 @@ final class ConstructionManagerController {
     }
     
     func create(_ req: Request) throws -> Future<ConstructionManager> {
-        return try req.content.decode(ConstructionManager.self).flatMap { todo in
-            return todo.save(on: req)
+        return try req.content.decode(ConstructionManager.self).flatMap { constructionManager in
+            return constructionManager.save(on: req)
         }
     }
     
     func delete(_ req: Request) throws -> Future<HTTPStatus> {
-        return try req.parameters.next(ConstructionManager.self).flatMap { todo in
-            return todo.delete(on: req)
+        return try req.parameters.next(ConstructionManager.self).flatMap { constructionManager in
+            return constructionManager.delete(on: req)
             }.transform(to: .ok)
     }
 }

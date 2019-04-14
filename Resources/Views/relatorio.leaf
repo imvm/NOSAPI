@@ -1,9 +1,44 @@
 #set("title") {
-Relatório
+Solicitações
 }
 
 #set("body") {
-<h1> Relatório </h1>
+    #if(count(transporterRequests) > 0) {
+        <table class="table table-striped">
+            <thead>
+                <th>#</th>
+                <th>Gerador</th>
+                <th>Fretista</th>
+                <th>Obra</th>
+                <th>Destino</th>
+                <th>Tipos RCC</th>
+                <th>Quantidade</th>
+                <th>Data de solicitação</th>
+                <th>Data de entrega</th>
+                <th>Entregue</th>
+                <th>Cancelado</th>
+            </thead>
+            <tbody>
+            #for(transportRequest in transportRequests) {
+                <tr>
+                    <td>#(transportRequest.id)</td>
+                    <td>#(transportRequest.constructionManagerId)</td>
+                    <td>#(transportRequest.transporterId)</td>
+                    <td>#(transportRequest.constructionSiteId)</td>
+                    <td>#(transportRequest.destinationId)</td>
+                    <td>#(transportRequest.RCCTypeIds)</td>
+                    <td>#(transportRequest.quantity)</td>
+                    <td>#(transportRequest.dateRequested)</td>
+                    <td>#(transportRequest.dateDelivered)</td>
+                    <td>#(transportRequest.delivered)</td>
+                    <td>#(transportRequest.cancelled)</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    } else {
+        <p>Não há nenhuma solicitação registrada.</p>
+    }
 }
 
 #embed("master")

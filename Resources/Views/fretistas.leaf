@@ -1,0 +1,36 @@
+#set("title") {
+Fretistas
+}
+
+#set("body") {
+    #if(count(transporters) > 0) {
+        <table class="table table-striped">
+            <thead>
+                <th>#</th>
+                <th>Solicitações</th>
+                <th>Nome</th>
+                <th>CNPJ</th>
+                <th>Contato</th>
+                <th>Preço base</th>
+                <th>Preço/quilômetro</th>
+            </thead>
+            <tbody>
+            #for(transporter in transporters) {
+                <tr>
+                    <td>#(transporter.id)</td>
+                    <td>#(transporter.transportRequests)</td>
+                    <td>#(transporter.name)</td>
+                    <td>#(transporter.CNPJ)</td>
+                    <td>#(transporter.phone)</td>
+                    <td>#(transporter.basePrice)</td>
+                    <td>#(transporter.kilometerPrice)</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    } else {
+        <p>Não há nenhum fretista registrado.</p>
+    }
+}
+
+#embed("master")

@@ -1,0 +1,28 @@
+#set("title") {
+Destinos
+}
+
+#set("body") {
+    #if(count(destinations) > 0) {
+        <table class="table table-striped">
+            <thead>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Endereço</th>
+            </thead>
+            <tbody>
+        #for(destination in destinations) {
+            <tr>
+                <td>#(destination.id)</td>
+                <td>#(destination.name)</td>
+                <td>#(destination.address)</td>
+            </tr>
+        }
+            </tbody>
+        </table>
+    } else {
+        <p>Não há nenhum destino registrado.</p>
+    }
+}
+
+#embed("master")

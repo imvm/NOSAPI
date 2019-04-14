@@ -6,12 +6,48 @@ public func routes(_ router: Router) throws {
         return try req.view().render("home")
     }
     
-    router.get("tickets") { req in
-        return try req.view().render("tickets")
+    router.get("relatorio") { req in
+        return TransportRequest.query(on: req).all().map { transportRequests -> EventLoopFuture<View> in
+            struct TransportRequestsContext: Codable {
+                var transportRequests: [TransportRequest]
+            }
+            
+            let transportRequestsContext = TransportRequestsContext(transportRequests: transportRequests)
+            return try req.view().render("relatorio", transportRequestsContext)
+        }
     }
     
-    router.get("relatorio") { req in
-        return try req.view().render("relatorio")
+    router.get("geradores") { req in
+        return ConstructionManager.query(on: req).all().map { constructionManagers -> EventLoopFuture<View> in
+            struct ConstructionManagersContext: Codable {
+                var constructionManagers: [ConstructionManager]
+            }
+            
+            let constructionManagersContext = ConstructionManagersContext(constructionManagers: constructionManagers)
+            return try req.view().render("geradores", constructionManagersContext)
+        }
+    }
+    
+    router.get("fretistas") { req in
+        return Transporter.query(on: req).all().map { transporters -> EventLoopFuture<View> in
+            struct TransportersContext: Codable {
+                var transporters: [Transporter]
+            }
+            
+            let transportersContext = TransportersContext(transporters: transporters)
+            return try req.view().render("fretistas", transportersContext)
+        }
+    }
+    
+    router.get("destinos") { req in
+        return Destination.query(on: req).all().map { destinations -> EventLoopFuture<View> in
+            struct DestinationsContext: Codable {
+                var destinations: [Destination]
+            }
+            
+            let destinationsContext = DestinationsContext(destinations: destinations)
+            return try req.view().render("destinos", destinationsContext)
+        }
     }
     
     let transporterController = TransporterController()

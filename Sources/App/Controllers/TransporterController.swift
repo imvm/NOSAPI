@@ -13,14 +13,14 @@ final class TransporterController {
     }
     
     func create(_ req: Request) throws -> Future<Transporter> {
-        return try req.content.decode(Transporter.self).flatMap { todo in
-            return todo.save(on: req)
+        return try req.content.decode(Transporter.self).flatMap { transporter in
+            return transporter.save(on: req)
         }
     }
     
     func delete(_ req: Request) throws -> Future<HTTPStatus> {
-        return try req.parameters.next(Transporter.self).flatMap { todo in
-            return todo.delete(on: req)
+        return try req.parameters.next(Transporter.self).flatMap { transporter in
+            return transporter.delete(on: req)
             }.transform(to: .ok)
     }
 }

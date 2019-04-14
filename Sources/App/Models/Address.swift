@@ -10,4 +10,6 @@ struct Address: Codable {
     var number: String
     var neighbourhood: String
     var municipality: String
+    var longitude: Double?
+    var latitude: Double?
 }

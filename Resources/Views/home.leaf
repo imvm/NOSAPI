@@ -1,9 +1,9 @@
 #set("title") {
-Home
+Dashboard
 }
 
 #set("body") {
-<h1> Bem-vindo ao site da Fiscalização N.O.S </h1>
+    <img src="/images/ticket_empty.png"/>
 }
 
 #embed("master")

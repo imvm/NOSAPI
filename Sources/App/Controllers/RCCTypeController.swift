@@ -13,14 +13,14 @@ final class RCCTypeController {
     }
     
     func create(_ req: Request) throws -> Future<RCCType> {
-        return try req.content.decode(RCCType.self).flatMap { todo in
-            return todo.save(on: req)
+        return try req.content.decode(RCCType.self).flatMap { rccType in
+            return rccType.save(on: req)
         }
     }
     
     func delete(_ req: Request) throws -> Future<HTTPStatus> {
-        return try req.parameters.next(RCCType.self).flatMap { todo in
-            return todo.delete(on: req)
+        return try req.parameters.next(RCCType.self).flatMap { rccType in
+            return rccType.delete(on: req)
             }.transform(to: .ok)
     }
 }

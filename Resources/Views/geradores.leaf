@@ -1,0 +1,32 @@
+#set("title") {
+Geradores
+}
+
+#set("body") {
+#if(count(constructionManagers) > 0) {
+        <table class="table table-striped">
+            <thead>
+                <th>#</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>CNPJ</th>
+                <th>Contato</th>
+            </thead>
+            <tbody>
+            #for(constructionManager in constructionManagers) {
+                <tr>
+                    <td>#(constructionManager.id)</td>
+                    <td>#(constructionManager.name)</td>
+                    <td>#(constructionManager.CPF)</td>
+                    <td>#(constructionManager.CNPJ)</td>
+                    <td>#(constructionManager.phone)</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    } else {
+        <p>Não há nenhum gerador registrado.</p>
+    }
+}
+
+#embed("master")

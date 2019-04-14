@@ -13,32 +13,30 @@ final class TransportRequest: PostgreSQLModel {
     /// The unique identifier for this `Todo`.
     var id: Int?
     var constructionManagerId: Int
-    var constructionSiteId: Int
     var transporterId: Int
+    var constructionSiteId: Int
+    var destinationId: Int
     var RCCTypeIds: [Int]
     var quantity: Double
-    var date: Date
+    var dateRequested: Date
+    var dateDelivered: Date?
     var delivered: Bool? = false
     var cancelled: Bool? = false
     
     /// Creates a new `Todo`.
-    init(id: Int? = nil, constructionManagerId: Int, constructionSiteId: Int, transporterId: Int, RCCTypeIds: [Int], quantity: Double, date: Date) {
+    init(id: Int? = nil, constructionManagerId: Int, transporterId: Int, constructionSiteId: Int, destinationId: Int, RCCTypeIds: [Int], quantity: Double, dateRequested: Date) {
         self.id = id
         self.constructionManagerId = constructionManagerId
-        self.constructionSiteId = constructionSiteId
         self.transporterId = transporterId
+        self.constructionSiteId = constructionSiteId
+        self.destinationId = destinationId
         self.RCCTypeIds = RCCTypeIds
         self.quantity = quantity
-        self.date = date
+        self.dateRequested = dateRequested
     }
 }
 
-/// Allows `Todo` to be used as a dynamic migration.
 extension TransportRequest: Migration { }
-
-/// Allows `Todo` to be encoded to and decoded from HTTP messages.
 extension TransportRequest: Content { }
-
-/// Allows `Todo` to be used as a dynamic parameter in route definitions.
 extension TransportRequest: Parameter { }
 
