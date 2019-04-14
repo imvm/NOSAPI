@@ -19,13 +19,18 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     services.register(middlewares)
     
     // Configure a Postgres database
-    let postgresqlConfig = PostgreSQLDatabaseConfig(
-        hostname: "127.0.0.1",
-        port: 5432,
-        username: "postgres",
-        database: "nos",
-        password: nil
-    )
+    let postgresqlConfig: PostgreSQLDatabaseConfig
+    if let url = Environment.get("DATABASE_URL"), let psqlConfig = PostgreSQLDatabaseConfig(url: url) {
+        postgresqlConfig = psqlConfig
+    } else {
+        postgresqlConfig = PostgreSQLDatabaseConfig(
+            hostname: "127.0.0.1",
+            port: 5432,
+            username: "postgres",
+            database: "nos",
+            password: nil
+        )
+    }
     services.register(postgresqlConfig)
 
     // Configure migrations
