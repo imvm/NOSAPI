@@ -18,20 +18,19 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     middlewares.use(ErrorMiddleware.self) // Catches errors and converts to HTTP response
     services.register(middlewares)
     
-    // Configure a Postgres database
-    let postgresqlConfig: PostgreSQLDatabaseConfig
-    if let url = Environment.get("HEROKU_POSTGRESQL_AQUA_URL"), let psqlConfig = PostgreSQLDatabaseConfig(url: url) {
-        postgresqlConfig = psqlConfig
+    // Configure a database
+    let dbConfig: PostgreSQLDatabaseConfig
+    if let url = Environment.get("DATABASE_URL"), let psqlConfig = PostgreSQLDatabaseConfig(url: url) {
+        dbConfig = psqlConfig
     } else {
-        postgresqlConfig = PostgreSQLDatabaseConfig(
-            hostname: "127.0.0.1",
-            port: 5432,
-            username: "postgres",
-            database: "nos",
-            password: nil
-        )
+        dbConfig = PostgreSQLDatabaseConfig(hostname: "localhost", port: 5432, username: "postgres", database: "nos", password: nil)
     }
-    services.register(postgresqlConfig)
+    let postgresql = PostgreSQLDatabase(config: dbConfig)
+    
+    /// Register the configured SQLite database to the database config.
+    var databases = DatabasesConfig()
+    databases.add(database: postgresql, as: .psql)
+    services.register(databases)
 
     // Configure migrations
     var migrations = MigrationConfig()
