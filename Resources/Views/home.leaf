@@ -1,0 +1,9 @@
+#set("title") {
+Home
+}
+
+#set("body") {
+<h1> Bem-vindo ao site da Fiscalização N.O.S </h1>
+}
+
+#embed("master")

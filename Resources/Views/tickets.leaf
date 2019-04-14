@@ -1,0 +1,9 @@
+#set("title") {
+Tickets
+}
+
+#set("body") {
+<h1> Tickets </h1>
+}
+
+#embed("master")

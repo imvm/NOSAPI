@@ -1,0 +1,9 @@
+#set("title") {
+Relatório
+}
+
+#set("body") {
+<h1> Relatório </h1>
+}
+
+#embed("master")
