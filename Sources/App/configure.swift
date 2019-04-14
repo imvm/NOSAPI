@@ -20,7 +20,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     
     // Configure a Postgres database
     let postgresqlConfig: PostgreSQLDatabaseConfig
-    if let url = Environment.get("DATABASE_URL"), let psqlConfig = PostgreSQLDatabaseConfig(url: url) {
+    if let url = Environment.get("HEROKU_POSTGRESQL_AQUA_URL"), let psqlConfig = PostgreSQLDatabaseConfig(url: url) {
         postgresqlConfig = psqlConfig
     } else {
         postgresqlConfig = PostgreSQLDatabaseConfig(
